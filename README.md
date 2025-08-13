@@ -1,6 +1,6 @@
 # Real-Time GCP Cloud Ops Showcase (Terraform + GKE + Pub/Sub + Cloud Build)
 
-This repo is a **6-hour, end-to-end Cloud Operations project** that demonstrates:
+This repo is a **end-to-end Cloud Operations project** that demonstrates:
 
 - Terraform with remote state in **GCS**
 - **GKE** cluster (Workload Identity), **Artifact Registry**, **Pub/Sub**
