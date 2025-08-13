@@ -1,0 +1,26 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ops-role
+  namespace: ops-demo
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "pods/log"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ops-binding
+  namespace: ops-demo
+subjects:
+  - kind: ServiceAccount
+    name: publisher-ksa
+    namespace: ops-demo
+  - kind: ServiceAccount
+    name: worker-ksa
+    namespace: ops-demo
+roleRef:
+  kind: Role
+  name: ops-role
+  apiGroup: rbac.authorization.k8s.io

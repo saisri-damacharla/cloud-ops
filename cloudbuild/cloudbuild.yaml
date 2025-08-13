@@ -1,0 +1,24 @@
+# Builds and pushes images to Artifact Registry
+# Usage:
+# gcloud builds submit --config=cloudbuild/cloudbuild.yaml --substitutions=_REGION=us-central1,_REPO=ops-images,_PROJECT_ID=your-project
+substitutions:
+  _REGION: "us-central1"
+  _REPO: "ops-images"
+  _PROJECT_ID: "your-project"
+
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/publisher:latest", "./app/publisher"]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/worker:latest", "./app/worker"]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/publisher:latest"]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/worker:latest"]
+
+images:
+  - "${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/publisher:latest"
+  - "${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/worker:latest"

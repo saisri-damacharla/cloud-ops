@@ -1,0 +1,9 @@
+output "project_id" { value = var.project_id }
+output "region"     { value = var.region }
+output "cluster_name" { value = google_container_cluster.gke.name }
+output "network"      { value = google_compute_network.vpc.name }
+output "subnet"       { value = google_compute_subnetwork.subnet.name }
+output "publisher_gsa_email" { value = google_service_account.publisher.email }
+output "worker_gsa_email"    { value = google_service_account.worker.email }
+output "topic"        { value = google_pubsub_topic.ops_topic.name }
+output "subscription" { value = google_pubsub_subscription.ops_sub.name }

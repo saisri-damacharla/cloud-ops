@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: ops-demo
+  labels:
+    app: worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      serviceAccountName: worker-ksa
+      containers:
+        - name: worker
+          image: REGION-docker.pkg.dev/PROJECT_ID/REPO/worker:latest
+          imagePullPolicy: Always
+          env:
+            - name: PROJECT_ID
+              value: "PROJECT_ID"
+            - name: SUB_ID
+              value: "ops-sub"
+            - name: SECRET_ID
+              value: "APP_API_KEY"
